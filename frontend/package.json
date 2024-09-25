@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint --dir src",
-    "format": "next lint --fix --dir src"
+    "lint:fix": "next lint --fix --dir src",
+    "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,html,json}'",
+    "format:check": "eslint-config-prettier 'src/**/*.{js,jsx,ts,tsx,html,json}'"
   },
   "dependencies": {
     "next": "14.2.13",
@@ -22,6 +24,7 @@
     "eslint-config-next": "14.2.13",
     "eslint-config-prettier": "^9.1.0",
     "postcss": "^8",
+    "prettier": "^3.3.3",
     "tailwindcss": "^3.4.1",
     "typescript": "5.5.4"
   }

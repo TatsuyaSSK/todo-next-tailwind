@@ -1,16 +1,16 @@
-import localFont from 'next/font/local'
-import Image from 'next/image'
+import localFont from 'next/font/local';
+import Image from 'next/image';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
   variable: '--font-geist-sans',
   weight: '100 900',
-})
+});
 const geistMono = localFont({
   src: './fonts/GeistMonoVF.woff',
   variable: '--font-geist-mono',
   weight: '100 900',
-})
+});
 
 export default function Home() {
   return (
@@ -62,11 +62,6 @@ export default function Home() {
             Read our docs
           </a>
         </div>
-
-
-
-
-
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
         <a
@@ -116,5 +111,5 @@ export default function Home() {
         </a>
       </footer>
     </div>
-  )
+  );
 }
