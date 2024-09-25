@@ -1,0 +1,41 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:16
+    volumes:
+      - saiteigen_postgres_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=user
+      - POSTGRES_DB=myapp_development
+  frontend:
+    build:
+      context: ./frontend
+    volumes:
+      - ./frontend:/app
+    ports:
+      - 8000:3000
+    tty: true
+    stdin_open: true
+  backend:
+    build:
+      context: ./backend
+    volumes:
+      - ./backend:/myapp
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=user
+      - POSTGRES_DB=myapp_development
+    command: bash -c "tail -f log/development.log"
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    tty: true
+    stdin_open: true
+
+volumes:
+  saiteigen_postgres_data:

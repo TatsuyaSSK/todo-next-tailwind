@@ -1,0 +1,11 @@
+FROM ruby:3.3.5
+RUN apt-get update -qq
+
+WORKDIR /myapp
+COPY Gemfile Gemfile.lock /myapp/
+RUN bundle install
+COPY . /myapp
+
+COPY entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
