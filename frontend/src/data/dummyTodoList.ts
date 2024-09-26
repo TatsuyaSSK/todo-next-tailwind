@@ -14,7 +14,7 @@ const dummyTodoList: Todo[] = [
   {
     id: 3,
     title: '部屋を掃除する',
-    completed: true,
+    completed: false,
   },
 ];
 

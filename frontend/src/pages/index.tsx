@@ -1,9 +1,7 @@
 import type { NextPage } from 'next';
-import { useEffect, useState } from 'react';
 import AddTodoForm from '@/components/AddTodoForm';
 import TodoList from '@/components/TodoList';
 import Layout from '@/components/layout';
-import dummyTodoList from '@/data/dummyTodoList';
 import TodoSummary from '@/components/TodoSummary';
 import useTodoList from '@/hooks/useTodoList';
 
