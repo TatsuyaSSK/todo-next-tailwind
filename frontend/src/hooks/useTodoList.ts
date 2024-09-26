@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import dummyTodoList from '@/data/dummyTodoList';
 
 const useTodoList = () => {

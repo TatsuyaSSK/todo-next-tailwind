@@ -1,8 +1,8 @@
 import type { NextPage } from 'next';
 import AddTodoForm from '@/components/AddTodoForm';
 import TodoList from '@/components/TodoList';
-import Layout from '@/components/layout';
 import TodoSummary from '@/components/TodoSummary';
+import Layout from '@/components/layout';
 import useTodoList from '@/hooks/useTodoList';
 
 const IndexPage: NextPage = () => {
@@ -15,7 +15,7 @@ const IndexPage: NextPage = () => {
         <h1 className="text-center text-4xl">todoアプリ</h1>
         <div className="space-y-5">
           <AddTodoForm addTodo={addTodo} />
-          <div className="rounded bg-slate-200 p-5 space-y-5">
+          <div className="space-y-5 rounded bg-slate-200 p-5">
             <TodoList
               todoList={todoList}
               changeCompleted={changeCompleted}

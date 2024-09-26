@@ -11,7 +11,7 @@ const TodoList = ({ todoList, changeCompleted, deleteTodo }: TodoListProps) => {
     <div className="space-y-3">
       {todoList.map((todo) => (
         <div key={todo.id} className="flex rounded bg-white p-2">
-          <label className="grow flex items-center gap-3 hover:cursor-pointer">
+          <label className="flex grow items-center gap-3 hover:cursor-pointer">
             <input
               type="checkbox"
               className="size-5"
