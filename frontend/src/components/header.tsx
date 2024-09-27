@@ -1,8 +1,10 @@
+import { Button } from './ui/button';
+
 const Header = () => {
   return (
-    <div className="bg-gray-600 p-3 text-center font-bold text-white">
-      Header Component
-    </div>
+    <header className="container flex h-16 items-center border-b">
+      <h1 className="font-bold">blanky</h1>
+    </header>
   );
 };
 
