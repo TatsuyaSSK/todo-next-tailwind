@@ -267,6 +267,7 @@ DEPENDENCIES
   bootsnap
   brakeman
   debug
+  faker
   ostruct
   pg (~> 1.1)
   pry-byebug

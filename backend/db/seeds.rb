@@ -1,9 +1,15 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+require "faker"
+
+20.times do |n|
+  sample_correct_answer_rate = Faker::Number.between(from: 0, to: 100)
+  sample_blank_type = Faker::Number.between(from: 1, to: 6)
+  sample_blank_rate = Faker::Number.between(from: 0, to: 100)
+  Problem.create!(
+    title: "test#{n+1}",
+    english_text: "blanky is a service that allows you to create your own original English questions just by uploading English sentences.",
+    japanese_text: "blankyは、英語の文章をアップロードするだけであなただけのオリジナルの英語問題を作成することができるサービスです。",
+    correct_answer_rate: sample_correct_answer_rate,
+    blank_type: sample_blank_type,
+    blank_rate: sample_blank_rate
+  )
+end

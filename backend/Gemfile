@@ -37,6 +37,7 @@ group :development, :test do
   gem "pry-rails"
 
   # rubocopに関するgem
+  gem "faker"
   gem "rubocop-faker"
   gem "rubocop-rails"
   gem "rubocop-rspec"
