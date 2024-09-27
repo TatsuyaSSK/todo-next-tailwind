@@ -2,6 +2,8 @@ import Head from 'next/head';
 import { ReactElement } from 'react';
 import { NextPageWithLayout } from './_app';
 import Layout from '@/components/layout';
+import { SearchButton } from '@/components/ui/searchButton';
+import { SearchInput } from '@/components/ui/searchInput';
 
 const ProblemsPage: NextPageWithLayout = () => {
   return (
@@ -16,17 +18,11 @@ const ProblemsPage: NextPageWithLayout = () => {
       </Head>
       <div className="flex flex-col justify-center">
         <form className="mt-5 flex">
-          <input
+          <SearchInput
             type="search"
-            className="grow rounded-s bg-gray-200 pl-2"
-            placeholder="タイトルで検索"
-          />
-          <button
-            type="submit"
-            className="rounded-e bg-blue-700 px-2 py-1 font-medium text-white hover:bg-blue-800"
-          >
-            検索
-          </button>
+            placeholder="タイトルで検索..."
+          ></SearchInput>
+          <SearchButton>検索</SearchButton>
         </form>
         <table className="mt-5">
           <thead>
