@@ -9,9 +9,9 @@ const inter = Inter({ subsets: ['latin'] });
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <div className={(inter.className, 'container mx-auto min-h-dvh')}>
+    <div className="min-h-dvh">
       <Header />
-      <main>{children}</main>
+      <main className={(inter.className, 'container mx-auto')}>{children}</main>
       <Footer />
     </div>
   );

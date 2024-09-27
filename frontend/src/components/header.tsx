@@ -7,11 +7,16 @@ const lobster = Lobster({ weight: '400', subsets: ['latin'] });
 
 const Header = () => {
   return (
-    <header className="container flex h-16 items-center border-b pl-4">
-      <h1 className={cn(lobster.className, 'text-primary text-3xl')}>
-        <Link href="/">blanky</Link>
-      </h1>
-      <Button>問題を作成する</Button>
+    <header className="m-0 box-border flex justify-center bg-slate-100 p-0">
+      <div className="container flex h-16 items-center justify-between border-b">
+        <h1 className={cn(lobster.className, 'text-primary text-4xl')}>
+          <Link href="/">blanky</Link>
+        </h1>
+        <div className="flex gap-4">
+          <Button variant={'secondary'}>プロフィール</Button>
+          <Button variant={'default'}>問題を作成する</Button>
+        </div>
+      </div>
     </header>
   );
 };
