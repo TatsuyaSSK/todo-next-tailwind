@@ -4,6 +4,53 @@ import { NextPageWithLayout } from './_app';
 import Layout from '@/components/layout';
 import { SearchButton } from '@/components/ui/searchButton';
 import { SearchInput } from '@/components/ui/searchInput';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import Link from 'next/link';
+
+const problems = [
+  {
+    id: 1,
+    title: 'オバマ大統領のスピーチ',
+    detail: 'ノーベル平和賞受賞後にオバマ大統領がスピーチした内容の一部',
+    correct_answer_rate: '75%',
+    created_at: '2024/09/18',
+  },
+  {
+    id: 2,
+    title: 'オバマ大統領のスピーチ',
+    detail: 'ノーベル平和賞受賞後にオバマ大統領がスピーチした内容の一部',
+    correct_answer_rate: '75%',
+    created_at: '2024/09/18',
+  },
+  {
+    id: 3,
+    title: 'オバマ大統領のスピーチ',
+    detail: 'ノーベル平和賞受賞後にオバマ大統領がスピーチした内容の一部',
+    correct_answer_rate: '75%',
+    created_at: '2024/09/18',
+  },
+  {
+    id: 4,
+    title: 'オバマ大統領のスピーチ',
+    detail: 'ノーベル平和賞受賞後にオバマ大統領がスピーチした内容の一部',
+    correct_answer_rate: '75%',
+    created_at: '2024/09/18',
+  },
+  {
+    id: 5,
+    title: 'オバマ大統領のスピーチ',
+    detail: 'ノーベル平和賞受賞後にオバマ大統領がスピーチした内容の一部',
+    correct_answer_rate: '75%',
+    created_at: '2024/09/18',
+  },
+];
 
 const ProblemsPage: NextPageWithLayout = () => {
   return (
@@ -24,44 +71,32 @@ const ProblemsPage: NextPageWithLayout = () => {
           ></SearchInput>
           <SearchButton>検索</SearchButton>
         </form>
-        <table className="mt-5">
-          <thead>
-            <tr className="bg-green-600 text-white">
-              <th>タイトル</th>
-              <th>詳細</th>
-              <th>種類</th>
-              <th>正答率</th>
-              <th>作成日</th>
-              <th>更新日</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>test1</td>
-              <td>detail1</td>
-              <td>random</td>
-              <td>75%</td>
-              <td>2024/09/12</td>
-              <td>2024/09/14</td>
-            </tr>
-            <tr>
-              <td>test2</td>
-              <td>detail2</td>
-              <td>noun</td>
-              <td>70%</td>
-              <td>2024/09/12</td>
-              <td>2024/09/14</td>
-            </tr>
-            <tr>
-              <td>test3</td>
-              <td>detail3</td>
-              <td>random</td>
-              <td>40%</td>
-              <td>2024/09/12</td>
-              <td>2024/09/14</td>
-            </tr>
-          </tbody>
-        </table>
+        <Table className="mt-10">
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-[400px]">タイトル</TableHead>
+              <TableHead className="w-[800px]">詳細</TableHead>
+              <TableHead>正答率</TableHead>
+              <TableHead className="text-right">作成日</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {problems.map((problem) => (
+              <TableRow key={problem.id}>
+                <TableCell className="font-medium">
+                  <Link href={'/problem/' + problem.id}>
+                    <div className="w-80">{problem.title}</div>
+                  </Link>
+                </TableCell>
+                <TableCell>{problem.detail}</TableCell>
+                <TableCell>{problem.correct_answer_rate}</TableCell>
+                <TableCell className="text-right">
+                  {problem.created_at}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </div>
     </>
   );
