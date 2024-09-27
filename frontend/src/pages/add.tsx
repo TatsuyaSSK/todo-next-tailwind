@@ -3,27 +3,27 @@ import { ReactElement } from 'react';
 import { NextPageWithLayout } from './_app';
 import Layout from '@/components/layout';
 
-const TermsPage: NextPageWithLayout = () => {
+const problemAddPage: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>利用規約</title>
+        <title>問題追加</title>
         <meta
           name="description"
-          content="英語学習アプリblanky 利用規約一覧"
+          content="英語学習アプリblanky 問題追加画面"
         ></meta>
       </Head>
       <section>
-        <h1>利用規約</h1>
-        <p>利用規約aaa</p>
-        <p>利用規約bbb</p>
+        <h1>問題追加</h1>
+        <p>問題追加aaa</p>
+        <p>問題追加bbb</p>
       </section>
     </>
   );
 };
 
-TermsPage.getLayout = function getLayout(page: ReactElement) {
+problemAddPage.getLayout = function getLayout(page: ReactElement) {
   return <Layout>{page}</Layout>;
 };
 
-export default TermsPage;
+export default problemAddPage;

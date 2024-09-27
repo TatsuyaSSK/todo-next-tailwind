@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { ReactElement } from 'react';
 import { NextPageWithLayout } from './_app';
+import Layout from '@/components/layout';
 
 const PrivacyPage: NextPageWithLayout = () => {
   return (
@@ -22,7 +23,7 @@ const PrivacyPage: NextPageWithLayout = () => {
 };
 
 PrivacyPage.getLayout = function getLayout(page: ReactElement) {
-  return <>{page}</>;
+  return <Layout>{page}</Layout>;
 };
 
 export default PrivacyPage;
