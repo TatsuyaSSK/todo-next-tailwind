@@ -1,8 +1,8 @@
 const Footer = () => {
   return (
-    <div className="mt-10 bg-gray-600 p-3 text-center font-bold text-white">
+    <footer className="container sticky top-full bg-gray-400 py-5 text-center font-bold text-white">
       Footer Component
-    </div>
+    </footer>
   );
 };
 
