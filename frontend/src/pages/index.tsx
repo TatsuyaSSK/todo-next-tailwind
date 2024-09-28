@@ -1,12 +1,11 @@
-import type { NextPage } from 'next';
 import Head from 'next/head';
+import type { ReactElement } from 'react';
 import type { NextPageWithLayout } from './_app';
 import AddTodoForm from '@/components/AddTodoForm';
 import TodoList from '@/components/TodoList';
 import TodoSummary from '@/components/TodoSummary';
 import Layout from '@/components/layout';
 import useTodoList from '@/hooks/useTodoList';
-import type { ReactElement } from 'react';
 
 const IndexPage: NextPageWithLayout = () => {
   const { todoList, changeCompleted, addTodo, deleteTodo, deleteAllCompleted } =

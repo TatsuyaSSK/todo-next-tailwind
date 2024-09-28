@@ -1,8 +1,8 @@
 import Head from 'next/head';
-import { ReactElement } from 'react';
-import { NextPageWithLayout } from '@/pages/_app';
-import Layout from '@/components/layout';
 import { useRouter } from 'next/router';
+import { ReactElement } from 'react';
+import Layout from '@/components/layout';
+import { NextPageWithLayout } from '@/pages/_app';
 
 const PrivacyPage: NextPageWithLayout = () => {
   const router = useRouter();

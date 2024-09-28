@@ -1,8 +1,10 @@
+import camelcaseKeys from 'camelcase-keys';
 import Head from 'next/head';
+import Link from 'next/link';
 import { ReactElement } from 'react';
+import useSWR from 'swr';
 import { NextPageWithLayout } from './_app';
 import Layout from '@/components/layout';
-import useSWR from 'swr';
 import { SearchButton } from '@/components/ui/searchButton';
 import { SearchInput } from '@/components/ui/searchInput';
 import {
@@ -13,9 +15,19 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import Link from 'next/link';
 import { fetcher } from '@/utils';
-import camelcaseKeys from 'camelcase-keys';
+
+interface ProblemInterface {
+  id: number;
+  title: string;
+  englishText: string;
+  japaneseText: string;
+  correctAnswerRate: number;
+  blankType: number;
+  blankRate: number;
+  createdAt: string;
+  updatedAt: string;
+}
 
 const ProblemsPage: NextPageWithLayout = () => {
   const url = 'http://localhost:3000/api/v1/problems';
@@ -24,7 +36,7 @@ const ProblemsPage: NextPageWithLayout = () => {
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
 
-  const problems = camelcaseKeys(data);
+  const problems: ProblemInterface[] = camelcaseKeys(data);
 
   return (
     <>
@@ -55,7 +67,7 @@ const ProblemsPage: NextPageWithLayout = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {problems.map((problem: any) => (
+            {problems.map((problem) => (
               <TableRow key={problem.id}>
                 <TableCell className="font-medium">
                   <Link href={'/problem/' + problem.id}>

@@ -8,7 +8,7 @@ const lobster = Lobster({ weight: '400', subsets: ['latin'] });
 
 const Header = () => {
   return (
-    <header className="m-0 box-border flex justify-center p-0 sticky top-0 z-50 bg-background">
+    <header className="sticky top-0 z-50 m-0 box-border flex justify-center bg-background p-0">
       <div className="container flex h-16 items-center justify-between">
         <h1 className={cn(lobster.className, 'text-primary text-4xl')}>
           <Link href="/problems">blanky</Link>
