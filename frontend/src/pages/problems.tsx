@@ -49,13 +49,15 @@ const ProblemsPage: NextPageWithLayout = () => {
         ></meta>
       </Head>
       <div className="flex flex-col justify-center">
-        <form className="flex">
-          <SearchInput
-            type="search"
-            placeholder="タイトルで検索..."
-          ></SearchInput>
-          <SearchButton>検索</SearchButton>
-        </form>
+        <div className="flex justify-center">
+          <form className="flex w-3/5">
+            <SearchInput
+              type="search"
+              placeholder="タイトルで検索..."
+            ></SearchInput>
+            <SearchButton>検索</SearchButton>
+          </form>
+        </div>
         <Table className="mt-10">
           <TableHeader>
             <TableRow>
