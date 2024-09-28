@@ -18,7 +18,7 @@ const Layout = ({ children }: LayoutProps) => {
     >
       <div className="min-h-dvh">
         <Header />
-        <main className={(inter.className, 'container mx-auto')}>
+        <main className={(inter.className, 'container mx-auto pt-10')}>
           {children}
         </main>
         <Footer />
