@@ -1,11 +1,13 @@
+import { zodResolver } from '@hookform/resolvers/zod';
+import axios from 'axios';
 import Head from 'next/head';
-import { ReactElement, SyntheticEvent } from 'react';
+import { useRouter } from 'next/router';
+import { ReactElement, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 import { NextPageWithLayout } from './_app';
 import Layout from '@/components/layout';
-import { useForm } from 'react-hook-form';
-import { Button } from '@/components/ui/button';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { Button, LoadingButton } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -16,18 +18,18 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
 
-const problemAddPage: NextPageWithLayout = () => {
+const ProblemAddPage: NextPageWithLayout = () => {
+  const router = useRouter();
+  const [isLoading, setLoading] = useState(false);
   const formSchema = z.object({
     title: z
       .string()
@@ -40,7 +42,12 @@ const problemAddPage: NextPageWithLayout = () => {
     englishText: z.string().min(1, {
       message: '必須項目です',
     }),
-    blankTypeId: z.string(),
+    blankTypeId: z
+      .string()
+      .min(1, {
+        message: '必須項目です',
+      })
+      .transform((item) => Number(item)),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -50,8 +57,23 @@ const problemAddPage: NextPageWithLayout = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setLoading(true);
+    setTimeout(() => {}, 1000);
+    const url = 'http://localhost:3000/api/v1/problems';
+    const headers = { 'Content-Type': 'application/json' };
+    const data = {
+      title: values.title,
+      english_text: values.englishText,
+      japanese_text: '翻訳された文章',
+      correct_answer_rate: 0,
+      blank_type: values.blankTypeId,
+      blank_rate: 20,
+    };
+    const result = await axios({ method: 'POST', url, data, headers });
+    console.log(result);
+    setLoading(false);
+    router.push('/problems');
   }
 
   return (
@@ -104,25 +126,19 @@ const problemAddPage: NextPageWithLayout = () => {
               <FormItem>
                 <FormLabel>問題形式</FormLabel>
                 <FormControl>
-                  <Select {...field}>
-                    <SelectTrigger className="w-[280px]">
-                      <SelectValue placeholder="" />
-                    </SelectTrigger>
+                  <Select onValueChange={field.onChange}>
+                    <FormControl>
+                      <SelectTrigger className="w-[180px]">
+                        <SelectValue placeholder="問題形式を選択" />
+                      </SelectTrigger>
+                    </FormControl>
                     <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>ランダム</SelectLabel>
-                        <SelectItem value="random20">20%</SelectItem>
-                        <SelectItem value="random50">50%</SelectItem>
-                        <SelectItem value="random80">80%</SelectItem>
-                      </SelectGroup>
-                      <SelectGroup>
-                        <SelectLabel>特定の品詞</SelectLabel>
-                        <SelectItem value="名詞">名詞</SelectItem>
-                        <SelectItem value="動詞">動詞</SelectItem>
-                        <SelectItem value="形容詞">形容詞</SelectItem>
-                        <SelectItem value="副詞">副詞</SelectItem>
-                        <SelectItem value="前置詞">前置詞</SelectItem>
-                      </SelectGroup>
+                      <SelectItem value="1">ランダム</SelectItem>
+                      <SelectItem value="2">名詞</SelectItem>
+                      <SelectItem value="3">動詞</SelectItem>
+                      <SelectItem value="4">形容詞</SelectItem>
+                      <SelectItem value="5">副詞</SelectItem>
+                      <SelectItem value="6">前置詞</SelectItem>
                     </SelectContent>
                   </Select>
                 </FormControl>
@@ -133,15 +149,19 @@ const problemAddPage: NextPageWithLayout = () => {
               </FormItem>
             )}
           />
-          <Button type="submit">Submit</Button>
+          {isLoading ? (
+            <LoadingButton />
+          ) : (
+            <Button type="submit">作成する</Button>
+          )}
         </form>
       </Form>
     </>
   );
 };
 
-problemAddPage.getLayout = function getLayout(page: ReactElement) {
+ProblemAddPage.getLayout = function getLayout(page: ReactElement) {
   return <Layout>{page}</Layout>;
 };
 
-export default problemAddPage;
+export default ProblemAddPage;

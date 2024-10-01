@@ -23,7 +23,7 @@ const TermsPage: NextPageWithLayout = () => {
 
         <section className="mt-5">
           <h2 className="text-2xl">第1条（適用）</h2>
-          <ol className="list-disc mt-5 pl-5 leading-8">
+          <ol className="mt-5 list-disc pl-5 leading-8">
             <li>
               本規約は，ユーザーと当社との間の本サービスの利用に関わる一切の関係に適用されるものとします。
             </li>
@@ -41,14 +41,14 @@ const TermsPage: NextPageWithLayout = () => {
 
         <section className="mt-5">
           <h2 className="text-2xl">第2条（利用登録）</h2>
-          <ol className="list-disc mt-5 pl-5 leading-8">
+          <ol className="mt-5 list-disc pl-5 leading-8">
             <li>
               本サービスにおいては，登録希望者が本規約に同意の上，当社の定める方法によって利用登録を申請し，当社がこれを承認することによって，利用登録が完了するものとします。
             </li>
             <li>
               当社は，利用登録の申請者に以下の事由があると判断した場合，利用登録の申請を承認しないことがあり，その理由については一切の開示義務を負わないものとします。
             </li>
-            <ol className="list-disc mt-5 pl-5 leading-8">
+            <ol className="mt-5 list-disc pl-5 leading-8">
               <li>利用登録の申請に際して虚偽の事項を届け出た場合</li>
               <li>本規約に違反したことがある者からの申請である場合</li>
               <li>その他，当社が利用登録を相当でないと判断した場合</li>
@@ -60,7 +60,7 @@ const TermsPage: NextPageWithLayout = () => {
           <h2 className="text-2xl">
             第3条（ユーザーIDおよびパスワードの管理）
           </h2>
-          <ol className="list-disc mt-5 pl-5 leading-8">
+          <ol className="mt-5 list-disc pl-5 leading-8">
             <li>
               ユーザーは，自己の責任において，本サービスのユーザーIDおよびパスワードを適切に管理するものとします。
             </li>
@@ -75,7 +75,7 @@ const TermsPage: NextPageWithLayout = () => {
 
         <section className="mt-5">
           <h2 className="text-2xl">第4条（利用料金および支払方法）</h2>
-          <ol className="list-disc mt-5 pl-5 leading-8">
+          <ol className="mt-5 list-disc pl-5 leading-8">
             <li>
               ユーザーは，本サービスの有料部分の対価として，当社が別途定め，本ウェブサイトに表示する利用料金を，当社が指定する方法により支払うものとします。
             </li>
@@ -90,7 +90,7 @@ const TermsPage: NextPageWithLayout = () => {
           <p className="mt-5">
             ユーザーは，本サービスの利用にあたり，以下の行為をしてはなりません。
           </p>
-          <ol className="list-disc mt-5 pl-5 leading-8">
+          <ol className="mt-5 list-disc pl-5 leading-8">
             <li>法令または公序良俗に違反する行為</li>
             <li>犯罪行為に関連する行為</li>
             <li>
@@ -122,7 +122,7 @@ const TermsPage: NextPageWithLayout = () => {
           <p className="mt-5">
             当社は，以下のいずれかの事由があると判断した場合，ユーザーに事前に通知することなく本サービスの全部または一部の提供を停止または中断することができるものとします。
           </p>
-          <ol className="list-disc mt-5 pl-5 leading-8">
+          <ol className="mt-5 list-disc pl-5 leading-8">
             <li>
               本サービスにかかるコンピュータシステムの保守点検または更新を行う場合
             </li>
@@ -142,7 +142,7 @@ const TermsPage: NextPageWithLayout = () => {
           <p className="mt-5">
             当社は，ユーザーが以下のいずれかに該当する場合には，事前の通知なく，ユーザーに対して，本サービスの全部もしくは一部の利用を制限し，またはユーザーとしての登録を抹消することができるものとします。
           </p>
-          <ol className="list-disc mt-5 pl-5 leading-8">
+          <ol className="mt-5 list-disc pl-5 leading-8">
             <li>本規約のいずれかの条項に違反した場合</li>
             <li>登録事項に虚偽の事実があることが判明した場合</li>
             <li>料金等の支払債務の不履行があった場合</li>
@@ -164,7 +164,7 @@ const TermsPage: NextPageWithLayout = () => {
 
         <section className="mt-5">
           <h2 className="text-2xl">第9条（保証の否認および免責事項）</h2>
-          <ol className="list-disc mt-5 pl-5 leading-8">
+          <ol className="mt-5 list-disc pl-5 leading-8">
             <li>
               当社は，本サービスに事実上または法律上の瑕疵（安全性，信頼性，正確性，完全性，有効性，特定の目的への適合性，セキュリティなどに関する欠陥，エラーやバグ，権利侵害などを含みます。）がないことを明示的にも黙示的にも保証しておりません。
             </li>
@@ -217,7 +217,7 @@ const TermsPage: NextPageWithLayout = () => {
 
         <section className="mt-5">
           <h2 className="text-2xl">第15条（準拠法・裁判管轄）</h2>
-          <ol className="list-disc mt-5 pl-5 leading-8">
+          <ol className="mt-5 list-disc pl-5 leading-8">
             <li>本規約の解釈にあたっては，日本法を準拠法とします。</li>
             <li>
               本サービスに関して紛争が生じた場合には，当社の本店所在地を管轄する裁判所を専属的合意管轄とします。
