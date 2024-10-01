@@ -98,9 +98,11 @@ const PrivacyPage: NextPageWithLayout = () => {
                   blankIndices.includes(i) ? (
                     <input
                       key={i}
+                      type="text"
                       {...register(`blank${i}`)}
-                      className="h-8 rounded-md border border-input bg-transparent mr-2 shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 font-semibold text-primary pl-2"
+                      className="h-8 rounded-md border border-green-800 bg-transparent mr-2 shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 font-semibold text-primary pl-2"
                       autoComplete="off"
+                      size={englishTextList[i].length + 3}
                     />
                   ) : (
                     `${word} `
