@@ -89,7 +89,7 @@ const PrivacyPage: NextPageWithLayout = () => {
         <h1 className="text-3xl text-primary">{problem.title}</h1>
       </div>
       {!isAnswerVisible && (
-        <section className="mt-10 px-20 border-2 border-border py-10 rounded-md">
+        <section className="mt-10 px-20 border-4 border-border py-20 rounded-md">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>
               <h2 className="text-xl">英文</h2>
@@ -123,7 +123,7 @@ const PrivacyPage: NextPageWithLayout = () => {
         </section>
       )}
       {isAnswerVisible && (
-        <section className="mt-10 px-20 border-2 border-border py-10 rounded-md">
+        <section className="mt-10 px-20 border-4 border-border py-20 rounded-md">
           <div>
             <h2 className="text-xl">回答</h2>
             <p className="leading-10 text-lg">
@@ -169,7 +169,7 @@ const PrivacyPage: NextPageWithLayout = () => {
               </p>
               %
               <p className="ml-2">
-                （ {correct_count}問中{total_count}問正解 ）
+                （ {total_count}問中{correct_count}問正解 ）
               </p>
             </div>
           </div>
