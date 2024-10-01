@@ -88,7 +88,7 @@ const ProblemAddPage: NextPageWithLayout = () => {
         'blankyは、英語の文章をアップロードするだけであなただけのオリジナルの英語問題を作成することができるサービスです',
       correct_answer_rate: 0,
       blank_type: values.blankTypeId,
-      blank_rate: 20,
+      blank_rate: 30,
       blank_indices: blankIndexes,
     };
     const result = await axios({ method: 'POST', url, data, headers });

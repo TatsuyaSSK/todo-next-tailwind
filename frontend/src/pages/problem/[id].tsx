@@ -70,6 +70,12 @@ const PrivacyPage: NextPageWithLayout = () => {
     return result;
   };
 
+  const total_count = Object.keys(isCorrects).length;
+  const correct_count = Object.values(isCorrects).reduce(
+    (count, value) => count + (value === true ? 1 : 0),
+    0,
+  );
+
   return (
     <>
       <Head>
@@ -150,11 +156,25 @@ const PrivacyPage: NextPageWithLayout = () => {
                 ),
               )}
             </p>
-            <div className="mt-10 flex justify-center">
-              <Button variant={'default'} asChild>
-                <Link href="/problems">問題一覧へ戻る</Link>
-              </Button>
+          </div>
+          <div className="mt-8">
+            <h2 className="text-xl">正答率</h2>
+            <div className="flex items-center">
+              <p>
+                <strong className="text-3xl text-primary">
+                  {Math.floor((correct_count / total_count) * 100)}
+                </strong>
+              </p>
+              %
+              <p className="ml-2">
+                （ {correct_count}問中{total_count}問正解 ）
+              </p>
             </div>
+          </div>
+          <div className="mt-10 flex justify-center">
+            <Button variant={'default'} asChild>
+              <Link href="/problems">問題一覧へ戻る</Link>
+            </Button>
           </div>
         </section>
       )}
