@@ -5,8 +5,22 @@ class Api::V1::ProblemsController < ApplicationController
   end
 
   def create
-    @problem = Problem.create!(problem_params)
+    @problem = Problem.new(problem_params)
+    @problem.transaction do
+      @problem.save!
+      for i in params[:blank_indices] do
+        BlankIndex.create!(problem_id: @problem.id, index: i)
+      end
+    end
     render json: @problem
+  end
+
+  def show
+    @problem = Problem.find(params[:id])
+    render json: {
+      problem: @problem,
+      blank_indices: @problem.blank_indices.as_json(only: [:index])
+    }
   end
 
   private

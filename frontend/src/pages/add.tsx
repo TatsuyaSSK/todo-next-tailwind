@@ -57,21 +57,42 @@ const ProblemAddPage: NextPageWithLayout = () => {
     },
   });
 
+  const countWords = (englishText: string): number => {
+    return englishText.split(' ').filter((word) => word !== '').length;
+  };
+
+  const createBlankIndexes = (
+    textLength: number,
+    blank_rate: number,
+  ): number[] => {
+    const blankIndexes: number[] = [];
+    for (let i = 0; i < textLength + 1; i++) {
+      if (Math.random() * 100 <= blank_rate) {
+        blankIndexes.push(i);
+      }
+    }
+    return blankIndexes;
+  };
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true);
     setTimeout(() => {}, 1000);
     const url = 'http://localhost:3000/api/v1/problems';
     const headers = { 'Content-Type': 'application/json' };
+    const textLength = countWords(values.englishText);
+    const blankIndexes = createBlankIndexes(textLength, 20);
     const data = {
       title: values.title,
       english_text: values.englishText,
-      japanese_text: '翻訳された文章',
+      japanese_text:
+        'blankyは、英語の文章をアップロードするだけであなただけのオリジナルの英語問題を作成することができるサービスです',
       correct_answer_rate: 0,
       blank_type: values.blankTypeId,
       blank_rate: 20,
+      blank_indices: blankIndexes,
     };
     const result = await axios({ method: 'POST', url, data, headers });
-    console.log(result);
+
     setLoading(false);
     router.push('/problems');
   }

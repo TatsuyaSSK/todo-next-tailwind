@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_27_125221) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_01_072006) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "blank_indices", force: :cascade do |t|
+    t.integer "index"
+    t.bigint "problem_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["problem_id"], name: "index_blank_indices_on_problem_id"
+  end
 
   create_table "problems", force: :cascade do |t|
     t.string "title", comment: "タイトル"
@@ -24,4 +32,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_27_125221) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "blank_indices", "problems"
 end
