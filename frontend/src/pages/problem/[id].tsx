@@ -54,7 +54,7 @@ const ProblemDetailPage: NextPageWithLayout = () => {
     const correctAnswerRate = Math.floor((correct_count / total_count) * 100);
     const url = `http://localhost:3000/api/v1/problems/${id}`;
     const headers = { 'Content-Type': 'application/json' };
-    const result = axios({
+    await axios({
       method: 'PATCH',
       url,
       data: { correct_answer_rate: correctAnswerRate },

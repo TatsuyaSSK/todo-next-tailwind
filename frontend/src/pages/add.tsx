@@ -89,7 +89,7 @@ const ProblemAddPage: NextPageWithLayout = () => {
       blank_rate: 30,
       blank_indices: blankIndexes,
     };
-    const result = await axios({ method: 'POST', url, data, headers });
+    await axios({ method: 'POST', url, data, headers });
 
     setLoading(false);
     router.push('/problems');
