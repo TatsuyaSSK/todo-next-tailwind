@@ -1,11 +1,12 @@
 class Api::V1::ProblemsController < ApplicationController
+  before_action :set_problem, only: [:show, :update, :destroy]
+
   def index
     problems = Problem.order(created_at: :desc)
     render json: problems
   end
 
   def create
-
     DeepL.configure do |config|
       config.auth_key = Rails.application.credentials.deepl_key
       config.host = 'https://api-free.deepl.com'
@@ -22,7 +23,6 @@ class Api::V1::ProblemsController < ApplicationController
   end
 
   def show
-    @problem = Problem.find(params[:id])
     render json: {
       problem: @problem,
       blank_indices: @problem.blank_indices.as_json(only: [:index])
@@ -30,12 +30,19 @@ class Api::V1::ProblemsController < ApplicationController
   end
 
   def update
-    @problem = Problem.find(params[:id])
     @problem.update(correct_answer_rate: params[:correct_answer_rate])
     render json: @problem
   end
 
+  def destroy
+    @problem.destroy
+  end
+
   private
+
+  def set_problem
+    @problem = Problem.find(params[:id])
+  end
 
   def problem_params
     params.require(:problem).permit(:title, :english_text, :correct_answer_rate, :blank_type, :blank_rate)

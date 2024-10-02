@@ -1,10 +1,12 @@
+import axios from 'axios';
 import camelcaseKeys from 'camelcase-keys';
 import Head from 'next/head';
 import Link from 'next/link';
-import { ReactElement } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import useSWR from 'swr';
 import { NextPageWithLayout } from './_app';
 import Layout from '@/components/layout';
+import { Button } from '@/components/ui/button';
 import { SearchButton } from '@/components/ui/searchButton';
 import { SearchInput } from '@/components/ui/searchInput';
 import {
@@ -30,13 +32,28 @@ interface ProblemInterface {
 }
 
 const ProblemsPage: NextPageWithLayout = () => {
+  const [problems, setProblems] = useState<ProblemInterface[]>([]);
   const url = 'http://localhost:3000/api/v1/problems';
   const { data, error, isLoading } = useSWR(url, fetcher);
+
+  useEffect(() => {
+    if (data) {
+      setProblems(camelcaseKeys(data));
+    }
+  }, [data]);
 
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
 
-  const problems: ProblemInterface[] = camelcaseKeys(data);
+  const deleteProblem = async (id: number) => {
+    const url = `http://localhost:3000/api/v1/problems/${id}`;
+    await axios({ method: 'DELETE', url });
+    setProblems((prevProblems) => {
+      return prevProblems.filter((problem) => {
+        return problem.id !== id;
+      });
+    });
+  };
 
   return (
     <>
@@ -65,7 +82,8 @@ const ProblemsPage: NextPageWithLayout = () => {
               <TableHead>英文</TableHead>
               <TableHead>和文</TableHead>
               <TableHead className="w-[100px]">正答率</TableHead>
-              <TableHead className="text-right">作成日時</TableHead>
+              <TableHead>作成日時</TableHead>
+              <TableHead className="text-right"></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -79,8 +97,11 @@ const ProblemsPage: NextPageWithLayout = () => {
                 <TableCell>{problem.englishText}</TableCell>
                 <TableCell>{problem.japaneseText}</TableCell>
                 <TableCell>{problem.correctAnswerRate}</TableCell>
+                <TableCell>{problem.createdAt}</TableCell>
                 <TableCell className="text-right">
-                  {problem.createdAt}
+                  <Button onClick={() => deleteProblem(problem.id)}>
+                    削除
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}
