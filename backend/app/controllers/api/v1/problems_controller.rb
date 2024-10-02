@@ -1,9 +1,10 @@
 class Api::V1::ProblemsController < ApplicationController
+  include Pagination
   before_action :set_problem, only: [:show, :update, :destroy]
 
   def index
-    problems = Problem.order(created_at: :desc)
-    render json: problems
+    problems = Problem.order(created_at: :desc).page(params[:page] || 1).per(10)
+    render json: {problems: problems, meta: pagination(problems)}
   end
 
   def create

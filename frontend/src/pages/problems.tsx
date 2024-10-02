@@ -2,11 +2,21 @@ import axios from 'axios';
 import camelcaseKeys from 'camelcase-keys';
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
 import useSWR from 'swr';
 import { NextPageWithLayout } from './_app';
 import Layout from '@/components/layout';
 import { Button } from '@/components/ui/button';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
 import { SearchButton } from '@/components/ui/searchButton';
 import { SearchInput } from '@/components/ui/searchInput';
 import {
@@ -31,14 +41,26 @@ interface ProblemInterface {
   updatedAt: string;
 }
 
+interface PageMetaInterface {
+  currentPage: number;
+  totalPages: number;
+}
+
 const ProblemsPage: NextPageWithLayout = () => {
+  const router = useRouter();
+  const page = 'page' in router.query ? Number(router.query.page) : 1;
   const [problems, setProblems] = useState<ProblemInterface[]>([]);
-  const url = 'http://localhost:3000/api/v1/problems';
+  const [meta, setMeta] = useState<PageMetaInterface>({
+    currentPage: 1,
+    totalPages: 1,
+  });
+  const url = `http://localhost:3000/api/v1/problems?page=${page}`;
   const { data, error, isLoading } = useSWR(url, fetcher);
 
   useEffect(() => {
     if (data) {
-      setProblems(camelcaseKeys(data));
+      setProblems(camelcaseKeys(data.problems));
+      setMeta(camelcaseKeys(data.meta));
     }
   }, [data]);
 
@@ -117,6 +139,92 @@ const ProblemsPage: NextPageWithLayout = () => {
             ))}
           </TableBody>
         </Table>
+        {meta.totalPages &&
+          meta.currentPage >= 1 &&
+          meta.currentPage <= meta.totalPages && (
+            <Pagination className="mt-8">
+              <PaginationContent>
+                <PaginationItem>
+                  {meta.currentPage > 1 && (
+                    <PaginationPrevious
+                      href={`/problems?page=${meta.currentPage - 1}`}
+                    />
+                  )}
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink
+                    key={1}
+                    href={`/problems?page=1`}
+                    isActive={meta.currentPage === 1 ? true : false}
+                  >
+                    1
+                  </PaginationLink>
+                </PaginationItem>
+                {meta.currentPage > 2 && (
+                  <PaginationItem>
+                    <PaginationEllipsis />
+                  </PaginationItem>
+                )}
+                {meta.currentPage > 2 && (
+                  <PaginationItem>
+                    <PaginationLink
+                      key={meta.currentPage - 1}
+                      href={`/problems?page=${meta.currentPage - 1}`}
+                    >
+                      {meta.currentPage - 1}
+                    </PaginationLink>
+                  </PaginationItem>
+                )}
+                {meta.currentPage !== 1 &&
+                  meta.currentPage !== meta.totalPages && (
+                    <PaginationItem>
+                      <PaginationLink
+                        key={meta.currentPage}
+                        href={`/problems?page=${meta.currentPage}`}
+                        isActive
+                      >
+                        {meta.currentPage}
+                      </PaginationLink>
+                    </PaginationItem>
+                  )}
+                {meta.currentPage + 1 < meta.totalPages && (
+                  <PaginationItem>
+                    <PaginationLink
+                      key={meta.currentPage + 1}
+                      href={`/problems?page=${meta.currentPage + 1}`}
+                    >
+                      {meta.currentPage + 1}
+                    </PaginationLink>
+                  </PaginationItem>
+                )}
+                {meta.totalPages - meta.currentPage > 1 && (
+                  <PaginationItem>
+                    <PaginationEllipsis />
+                  </PaginationItem>
+                )}
+                {meta.totalPages > 1 && (
+                  <PaginationItem>
+                    <PaginationLink
+                      key={meta.totalPages}
+                      href={`/problems?page=${meta.totalPages}`}
+                      isActive={
+                        meta.currentPage === meta.totalPages ? true : false
+                      }
+                    >
+                      {meta.totalPages}
+                    </PaginationLink>
+                  </PaginationItem>
+                )}
+                <PaginationItem>
+                  {meta.currentPage !== meta.totalPages && (
+                    <PaginationNext
+                      href={`/problems?page=${meta.currentPage + 1}`}
+                    />
+                  )}
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          )}
       </div>
     </>
   );
