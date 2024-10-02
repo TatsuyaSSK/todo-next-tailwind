@@ -66,7 +66,7 @@ const ProblemAddPage: NextPageWithLayout = () => {
     blank_rate: number,
   ): number[] => {
     const blankIndexes: number[] = [];
-    for (let i = 0; i < textLength + 1; i++) {
+    for (let i = 0; i < textLength; i++) {
       if (Math.random() * 100 <= blank_rate) {
         blankIndexes.push(i);
       }
@@ -84,8 +84,6 @@ const ProblemAddPage: NextPageWithLayout = () => {
     const data = {
       title: values.title,
       english_text: values.englishText,
-      japanese_text:
-        'blankyは、英語の文章をアップロードするだけであなただけのオリジナルの英語問題を作成することができるサービスです',
       correct_answer_rate: 0,
       blank_type: values.blankTypeId,
       blank_rate: 30,

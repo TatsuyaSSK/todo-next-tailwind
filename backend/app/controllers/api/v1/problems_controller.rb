@@ -5,7 +5,13 @@ class Api::V1::ProblemsController < ApplicationController
   end
 
   def create
-    @problem = Problem.new(problem_params)
+
+    DeepL.configure do |config|
+      config.auth_key = Rails.application.credentials.deepl_key
+      config.host = 'https://api-free.deepl.com'
+    end
+    translation = DeepL.translate(params[:problem][:english_text], "EN", "JA")
+    @problem = Problem.new(problem_params.merge(japanese_text: translation.text))
     @problem.transaction do
       @problem.save!
       for i in params[:blank_indices] do
@@ -32,6 +38,6 @@ class Api::V1::ProblemsController < ApplicationController
   private
 
   def problem_params
-    params.require(:problem).permit(:title, :english_text, :japanese_text, :correct_answer_rate, :blank_type, :blank_rate)
+    params.require(:problem).permit(:title, :english_text, :correct_answer_rate, :blank_type, :blank_rate)
   end
 end
