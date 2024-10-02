@@ -55,6 +55,9 @@ const ProblemsPage: NextPageWithLayout = () => {
     });
   };
 
+  const omitText = (text: string) => (len: number) => (ellipsis: string) =>
+    text.length >= len ? text.slice(0, len - ellipsis.length) + ellipsis : text;
+
   return (
     <>
       <Head>
@@ -67,7 +70,7 @@ const ProblemsPage: NextPageWithLayout = () => {
       </Head>
       <div className="flex flex-col justify-center">
         <div className="flex justify-center">
-          <form className="flex w-3/5">
+          <form className="flex w-4/5 lg:w-3/5">
             <SearchInput
               type="search"
               placeholder="タイトルで検索..."
@@ -94,12 +97,19 @@ const ProblemsPage: NextPageWithLayout = () => {
                     <div className="w-80">{problem.title}</div>
                   </Link>
                 </TableCell>
-                <TableCell>{problem.englishText}</TableCell>
-                <TableCell>{problem.japaneseText}</TableCell>
+                <TableCell>
+                  {omitText(problem.englishText)(40)('...')}
+                </TableCell>
+                <TableCell>
+                  {omitText(problem.japaneseText)(40)('...')}
+                </TableCell>
                 <TableCell>{problem.correctAnswerRate}</TableCell>
                 <TableCell>{problem.createdAt}</TableCell>
                 <TableCell className="text-right">
-                  <Button onClick={() => deleteProblem(problem.id)}>
+                  <Button
+                    variant={'secondary'}
+                    onClick={() => deleteProblem(problem.id)}
+                  >
                     削除
                   </Button>
                 </TableCell>
