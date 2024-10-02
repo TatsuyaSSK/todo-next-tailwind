@@ -23,6 +23,12 @@ class Api::V1::ProblemsController < ApplicationController
     }
   end
 
+  def update
+    @problem = Problem.find(params[:id])
+    @problem.update(correct_answer_rate: params[:correct_answer_rate])
+    render json: @problem
+  end
+
   private
 
   def problem_params
