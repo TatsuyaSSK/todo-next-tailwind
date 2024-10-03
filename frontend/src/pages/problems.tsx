@@ -35,7 +35,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { DotsHorizontalIcon } from '@radix-ui/react-icons';
+import { CaretSortIcon, DotsHorizontalIcon } from '@radix-ui/react-icons';
 
 interface ProblemInterface {
   id: number;
@@ -115,8 +115,17 @@ const ProblemsPage: NextPageWithLayout = () => {
         <Table className="mt-10">
           <TableHeader>
             <TableRow>
-              <TableHead>タイトル</TableHead>
-              <TableHead>英文</TableHead>
+              <TableHead>
+                <Button
+                  variant={'ghost'}
+                  size={'icon'}
+                  className="w-2/5 justify-start"
+                >
+                  タイトル
+                  <CaretSortIcon className="ml-2 h-4 w-4" />
+                </Button>
+              </TableHead>
+              <TableHead className="flex items-center">英文</TableHead>
               <TableHead>和文</TableHead>
               <TableHead className="w-[100px]">正答率</TableHead>
               <TableHead>作成日時</TableHead>
