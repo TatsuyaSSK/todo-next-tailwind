@@ -57,12 +57,15 @@ interface PageMetaInterface {
 const ProblemsPage: NextPageWithLayout = () => {
   const router = useRouter();
   const page = 'page' in router.query ? Number(router.query.page) : 1;
+  const sort = 'sort' in router.query ? router.query.sort : 'created_at';
+  const direction =
+    'direction' in router.query ? router.query.direction : 'DESC';
   const [problems, setProblems] = useState<ProblemInterface[]>([]);
   const [meta, setMeta] = useState<PageMetaInterface>({
     currentPage: 1,
     totalPages: 1,
   });
-  const url = `http://localhost:3000/api/v1/problems?page=${page}`;
+  const url = `http://localhost:3000/api/v1/problems?page=${page}&sort=${sort}&direction=${direction}`;
   const { data, error, isLoading } = useSWR(url, fetcher);
 
   useEffect(() => {
@@ -127,8 +130,26 @@ const ProblemsPage: NextPageWithLayout = () => {
               </TableHead>
               <TableHead className="flex items-center">英文</TableHead>
               <TableHead>和文</TableHead>
-              <TableHead className="w-[100px]">正答率</TableHead>
-              <TableHead>作成日時</TableHead>
+              <TableHead className="w-[100px]">
+                <Button
+                  variant={'ghost'}
+                  size={'icon'}
+                  className="w-full justify-start"
+                >
+                  正答率
+                  <CaretSortIcon className="ml-2 h-4 w-4" />
+                </Button>
+              </TableHead>
+              <TableHead>
+                <Button
+                  variant={'ghost'}
+                  size={'icon'}
+                  className="w-3/5 justify-start"
+                >
+                  作成日時
+                  <CaretSortIcon className="ml-2 h-4 w-4" />
+                </Button>
+              </TableHead>
               <TableHead className="text-right"></TableHead>
             </TableRow>
           </TableHeader>
