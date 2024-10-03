@@ -123,9 +123,14 @@ const ProblemsPage: NextPageWithLayout = () => {
                   variant={'ghost'}
                   size={'icon'}
                   className="w-2/5 justify-start"
+                  asChild
                 >
-                  タイトル
-                  <CaretSortIcon className="ml-2 h-4 w-4" />
+                  <Link
+                    href={`/problems?page=1&sort=title&direction=${direction === 'DESC' ? 'ASC' : 'DESC'}`}
+                  >
+                    タイトル
+                    <CaretSortIcon className="ml-2 h-4 w-4" />
+                  </Link>
                 </Button>
               </TableHead>
               <TableHead className="flex items-center">英文</TableHead>
@@ -135,9 +140,14 @@ const ProblemsPage: NextPageWithLayout = () => {
                   variant={'ghost'}
                   size={'icon'}
                   className="w-full justify-start"
+                  asChild
                 >
-                  正答率
-                  <CaretSortIcon className="ml-2 h-4 w-4" />
+                  <Link
+                    href={`/problems?page=1&sort=correct_answer_rate&direction=${direction === 'DESC' ? 'ASC' : 'DESC'}`}
+                  >
+                    正答率
+                    <CaretSortIcon className="ml-2 h-4 w-4" />
+                  </Link>
                 </Button>
               </TableHead>
               <TableHead>
@@ -145,9 +155,14 @@ const ProblemsPage: NextPageWithLayout = () => {
                   variant={'ghost'}
                   size={'icon'}
                   className="w-3/5 justify-start"
+                  asChild
                 >
-                  作成日時
-                  <CaretSortIcon className="ml-2 h-4 w-4" />
+                  <Link
+                    href={`/problems?page=1&sort=created_at&direction=${direction === 'DESC' ? 'ASC' : 'DESC'}`}
+                  >
+                    作成日時
+                    <CaretSortIcon className="ml-2 h-4 w-4" />
+                  </Link>
                 </Button>
               </TableHead>
               <TableHead className="text-right"></TableHead>
@@ -198,14 +213,20 @@ const ProblemsPage: NextPageWithLayout = () => {
                 <PaginationItem>
                   {meta.currentPage > 1 && (
                     <PaginationPrevious
-                      href={`/problems?page=${meta.currentPage - 1}`}
+                      href={
+                        `/problems?page=${meta.currentPage - 1}` +
+                        `&sort=${sort}&direction=${direction}`
+                      }
                     />
                   )}
                 </PaginationItem>
                 <PaginationItem>
                   <PaginationLink
                     key={1}
-                    href={`/problems?page=1`}
+                    href={
+                      `/problems?page=1` +
+                      `&sort=${sort}&direction=${direction}`
+                    }
                     isActive={meta.currentPage === 1 ? true : false}
                   >
                     1
@@ -220,7 +241,10 @@ const ProblemsPage: NextPageWithLayout = () => {
                   <PaginationItem>
                     <PaginationLink
                       key={meta.currentPage - 1}
-                      href={`/problems?page=${meta.currentPage - 1}`}
+                      href={
+                        `/problems?page=${meta.currentPage - 1}` +
+                        `&sort=${sort}&direction=${direction}`
+                      }
                     >
                       {meta.currentPage - 1}
                     </PaginationLink>
@@ -231,7 +255,10 @@ const ProblemsPage: NextPageWithLayout = () => {
                     <PaginationItem>
                       <PaginationLink
                         key={meta.currentPage}
-                        href={`/problems?page=${meta.currentPage}`}
+                        href={
+                          `/problems?page=${meta.currentPage}` +
+                          `&sort=${sort}&direction=${direction}`
+                        }
                         isActive
                       >
                         {meta.currentPage}
@@ -242,7 +269,10 @@ const ProblemsPage: NextPageWithLayout = () => {
                   <PaginationItem>
                     <PaginationLink
                       key={meta.currentPage + 1}
-                      href={`/problems?page=${meta.currentPage + 1}`}
+                      href={
+                        `/problems?page=${meta.currentPage + 1}` +
+                        `&sort=${sort}&direction=${direction}`
+                      }
                     >
                       {meta.currentPage + 1}
                     </PaginationLink>
@@ -257,7 +287,10 @@ const ProblemsPage: NextPageWithLayout = () => {
                   <PaginationItem>
                     <PaginationLink
                       key={meta.totalPages}
-                      href={`/problems?page=${meta.totalPages}`}
+                      href={
+                        `/problems?page=${meta.totalPages}` +
+                        `&sort=${sort}&direction=${direction}`
+                      }
                       isActive={
                         meta.currentPage === meta.totalPages ? true : false
                       }
@@ -269,7 +302,10 @@ const ProblemsPage: NextPageWithLayout = () => {
                 <PaginationItem>
                   {meta.currentPage !== meta.totalPages && (
                     <PaginationNext
-                      href={`/problems?page=${meta.currentPage + 1}`}
+                      href={
+                        `/problems?page=${meta.currentPage + 1}` +
+                        `&sort=${sort}&direction=${direction}`
+                      }
                     />
                   )}
                 </PaginationItem>
