@@ -28,6 +28,14 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { fetcher } from '@/utils';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 
 interface ProblemInterface {
   id: number;
@@ -70,6 +78,10 @@ const ProblemsPage: NextPageWithLayout = () => {
   const deleteProblem = async (id: number) => {
     const url = `http://localhost:3000/api/v1/problems/${id}`;
     await axios({ method: 'DELETE', url });
+    /*
+    NOTE: 削除したときにページごとの数より少なくなる（リロードすればデータが再取得されて解消される）
+    挙動として、削除したら現在のpage番号でデータを再取得しにいくべきなんだろうか。
+    */
     setProblems((prevProblems) => {
       return prevProblems.filter((problem) => {
         return problem.id !== id;
@@ -128,12 +140,21 @@ const ProblemsPage: NextPageWithLayout = () => {
                 <TableCell>{problem.correctAnswerRate}</TableCell>
                 <TableCell>{problem.createdAt}</TableCell>
                 <TableCell className="text-right">
-                  <Button
-                    variant={'secondary'}
-                    onClick={() => deleteProblem(problem.id)}
-                  >
-                    削除
-                  </Button>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant={'ghost'} className="h-8 w-8 p-0">
+                        <span className="sr-only">open menu</span>
+                        <DotsHorizontalIcon className="h-4 w-4"></DotsHorizontalIcon>
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuItem
+                        onClick={() => deleteProblem(problem.id)}
+                      >
+                        削除
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </TableCell>
               </TableRow>
             ))}
