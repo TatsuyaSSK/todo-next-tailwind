@@ -1,3 +1,4 @@
+import { CaretSortIcon, DotsHorizontalIcon } from '@radix-ui/react-icons';
 import axios from 'axios';
 import camelcaseKeys from 'camelcase-keys';
 import Head from 'next/head';
@@ -8,6 +9,13 @@ import useSWR from 'swr';
 import { NextPageWithLayout } from './_app';
 import Layout from '@/components/layout';
 import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import {
   Pagination,
   PaginationContent,
@@ -28,14 +36,6 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { fetcher } from '@/utils';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { CaretSortIcon, DotsHorizontalIcon } from '@radix-ui/react-icons';
 
 interface ProblemInterface {
   id: number;
@@ -129,7 +129,7 @@ const ProblemsPage: NextPageWithLayout = () => {
                     href={`/problems?page=1&sort=title&direction=${direction === 'DESC' ? 'ASC' : 'DESC'}`}
                   >
                     タイトル
-                    <CaretSortIcon className="ml-2 h-4 w-4" />
+                    <CaretSortIcon className="ml-2 size-4" />
                   </Link>
                 </Button>
               </TableHead>
@@ -146,7 +146,7 @@ const ProblemsPage: NextPageWithLayout = () => {
                     href={`/problems?page=1&sort=correct_answer_rate&direction=${direction === 'DESC' ? 'ASC' : 'DESC'}`}
                   >
                     正答率
-                    <CaretSortIcon className="ml-2 h-4 w-4" />
+                    <CaretSortIcon className="ml-2 size-4" />
                   </Link>
                 </Button>
               </TableHead>
@@ -161,7 +161,7 @@ const ProblemsPage: NextPageWithLayout = () => {
                     href={`/problems?page=1&sort=created_at&direction=${direction === 'DESC' ? 'ASC' : 'DESC'}`}
                   >
                     作成日時
-                    <CaretSortIcon className="ml-2 h-4 w-4" />
+                    <CaretSortIcon className="ml-2 size-4" />
                   </Link>
                 </Button>
               </TableHead>
@@ -187,9 +187,9 @@ const ProblemsPage: NextPageWithLayout = () => {
                 <TableCell className="text-right">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant={'ghost'} className="h-8 w-8 p-0">
+                      <Button variant={'ghost'} className="size-8 p-0">
                         <span className="sr-only">open menu</span>
-                        <DotsHorizontalIcon className="h-4 w-4"></DotsHorizontalIcon>
+                        <DotsHorizontalIcon className="size-4"></DotsHorizontalIcon>
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
