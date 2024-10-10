@@ -36,8 +36,8 @@ const ProblemAddPage: NextPageWithLayout = () => {
       .min(1, {
         message: '必須項目です',
       })
-      .max(40, {
-        message: '40文字以内で入力してください',
+      .max(30, {
+        message: '30文字以内で入力してください',
       }),
     englishText: z.string().min(1, {
       message: '必須項目です',
