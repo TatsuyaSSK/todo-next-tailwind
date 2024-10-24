@@ -76,7 +76,6 @@ const ProblemAddPage: NextPageWithLayout = () => {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true);
-    setTimeout(() => {}, 1000);
     const url = 'http://localhost:3000/api/v1/problems';
     const headers = { 'Content-Type': 'application/json' };
     const textLength = countWords(values.englishText);
