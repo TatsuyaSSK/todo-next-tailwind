@@ -1,4 +1,4 @@
-class Api::V1::ProblemsController < ApplicationController
+class Api::V1::ProblemsController < Api::V1::BaseController
   include Pagination
   before_action :set_problem, only: [:show, :update, :destroy]
 

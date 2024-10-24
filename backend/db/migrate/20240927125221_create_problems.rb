@@ -1,4 +1,4 @@
-class CreateProblems < ActiveRecord::Migration[7.2]
+class CreateProblems < ActiveRecord::Migration[7.1]
   def change
     create_table :problems do |t|
       t.string :title, comment: "タイトル"
