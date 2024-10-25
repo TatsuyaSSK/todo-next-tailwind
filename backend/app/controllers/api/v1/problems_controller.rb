@@ -12,7 +12,7 @@ class Api::V1::ProblemsController < Api::V1::BaseController
       config.auth_key = Rails.application.credentials.deepl_key
       config.host = 'https://api-free.deepl.com'
     end
-    translation = DeepL.translate(params[:problem][:english_text], "EN", "JA")
+    translation = DeepL.translate(params[:english_text], "EN", "JA")
     @problem = Problem.new(problem_params.merge(japanese_text: translation.text))
     @problem.transaction do
       @problem.save!
@@ -46,7 +46,7 @@ class Api::V1::ProblemsController < Api::V1::BaseController
   end
 
   def problem_params
-    params.require(:problem).permit(:title, :english_text, :correct_answer_rate, :blank_type, :blank_rate)
+    params.permit(:title, :english_text, :correct_answer_rate, :blank_type, :blank_rate)
   end
 
   def get_problem(params)

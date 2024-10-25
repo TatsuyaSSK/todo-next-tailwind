@@ -4,6 +4,7 @@ import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 import type { ReactElement, ReactNode } from 'react';
 import CurrentUserFetch from '@/components/CurrentUserFetch';
+import { Toaster } from '@/components/ui/toaster';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -21,6 +22,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     <>
       <CurrentUserFetch />
       <Component {...pageProps} />
+      <Toaster />
     </>,
   );
 }

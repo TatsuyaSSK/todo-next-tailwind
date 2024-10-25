@@ -18,9 +18,11 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { useToast } from '@/hooks/use-toast';
 import { useUserState } from '@/hooks/useGlobalState';
 
 const SignInPage: NextPageWithLayout = () => {
+  const { toast } = useToast();
   const router = useRouter();
   const [isLoading, setLoading] = useState(false);
   const [user, setUser] = useUserState();
@@ -78,6 +80,9 @@ const SignInPage: NextPageWithLayout = () => {
 
     setLoading(false);
     router.push('/problems');
+    toast({
+      description: 'ログインに成功しました',
+    });
   }
 
   return (

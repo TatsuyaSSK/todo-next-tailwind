@@ -26,8 +26,10 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/use-toast';
 
 const ProblemAddPage: NextPageWithLayout = () => {
+  const { toast } = useToast();
   const router = useRouter();
   const [isLoading, setLoading] = useState(false);
   const formSchema = z.object({
@@ -92,6 +94,9 @@ const ProblemAddPage: NextPageWithLayout = () => {
 
     setLoading(false);
     router.push('/problems');
+    toast({
+      description: '問題の作成に成功しました',
+    });
   }
 
   return (
