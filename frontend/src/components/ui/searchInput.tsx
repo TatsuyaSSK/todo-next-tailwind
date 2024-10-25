@@ -8,7 +8,6 @@ export interface SearchInputProps
 
 const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
   ({ className, type, ...props }, ref) => {
-    console.log(props);
     return (
       <input
         type={type}

@@ -16,7 +16,6 @@ const lobster = Lobster({ weight: '400', subsets: ['latin'] });
 
 const Header = () => {
   const [user] = useUserState();
-  console.log(user);
 
   return (
     <header className="bg-primary-foreground sticky top-0 z-50 m-0 box-border flex justify-center p-0">
@@ -32,7 +31,7 @@ const Header = () => {
                   <Link href="/sign_in">ログイン</Link>
                 </Button>
                 <Button variant={'default'} asChild>
-                  <Link href="/sign_in">新規登録</Link>
+                  <Link href="/sign_up">新規登録</Link>
                 </Button>
                 <ModeToggle />
               </div>
