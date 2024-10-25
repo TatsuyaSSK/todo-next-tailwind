@@ -1,7 +1,14 @@
+import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import { Lobster } from 'next/font/google';
 import Link from 'next/link';
 import { Button } from './ui/button';
 import { ModeToggle } from '@/components/ModeToggle';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { useUserState } from '@/hooks/useGlobalState';
 import { cn } from '@/lib/utils';
 
@@ -32,9 +39,19 @@ const Header = () => {
             )}
             {user.isSignedIn && (
               <div className="flex gap-4">
-                <Button variant={'outline'} asChild>
-                  <Link href="/profile">{user.email}</Link>
-                </Button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant={'outline'}>{user.email}</Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuItem>
+                      <Link href="/profile">プロフィール</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link href="/sign_out">サインアウト</Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
                 <Button variant={'default'} asChild>
                   <Link href="/add">問題を作成する</Link>
                 </Button>
