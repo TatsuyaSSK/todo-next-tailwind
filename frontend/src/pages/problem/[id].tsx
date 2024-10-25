@@ -62,8 +62,8 @@ const ProblemDetailPage: NextPageWithLayout = () => {
     });
   };
 
-  if (error) return <div>failed to load</div>;
-  if (!data) return <div>loading...</div>;
+  if (error) return <div>読み込みに失敗しました</div>;
+  if (!data) return <div>ローディング中...</div>;
 
   const problem = camelcaseKeys(data.problem) satisfies ProblemInterface;
   const englishTextList: string[] = problem.englishText.split(' ');
@@ -100,10 +100,10 @@ const ProblemDetailPage: NextPageWithLayout = () => {
         ></meta>
       </Head>
       <div className="flex justify-center">
-        <h1 className="text-3xl font-medium text-primary">{problem.title}</h1>
+        <h1 className="text-primary text-3xl font-medium">{problem.title}</h1>
       </div>
       {!isAnswerVisible && (
-        <section className="mt-10 rounded-md border-4 border-border p-20">
+        <section className="border-border mt-10 rounded-md border-4 p-20">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>
               <h2 className="text-xl">英文</h2>
@@ -114,7 +114,7 @@ const ProblemDetailPage: NextPageWithLayout = () => {
                       key={i}
                       type="text"
                       {...register(`blank${i}`)}
-                      className="mr-2 h-8 rounded-md border border-green-800 bg-transparent pl-2 font-semibold text-primary shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                      className="text-primary focus-visible:ring-ring mr-2 h-8 rounded-md border border-green-800 bg-transparent pl-2 font-semibold shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50"
                       autoComplete="off"
                       size={englishTextList[i].length + 3}
                     />
@@ -137,7 +137,7 @@ const ProblemDetailPage: NextPageWithLayout = () => {
         </section>
       )}
       {isAnswerVisible && (
-        <section className="mt-10 rounded-md border-4 border-border p-20">
+        <section className="border-border mt-10 rounded-md border-4 p-20">
           <div>
             <h2 className="text-xl">回答</h2>
             <p className="text-lg leading-10">
@@ -147,8 +147,8 @@ const ProblemDetailPage: NextPageWithLayout = () => {
                     key={i}
                     className={
                       isCorrects[i]
-                        ? 'mr-2 text-primary'
-                        : 'mr-2 text-destructive'
+                        ? 'text-primary mr-2'
+                        : 'text-destructive mr-2'
                     }
                   >
                     {inputResults[`blank${i}`] || '( )'}
@@ -177,7 +177,7 @@ const ProblemDetailPage: NextPageWithLayout = () => {
             <h2 className="text-xl">正答率</h2>
             <div className="flex items-center">
               <p>
-                <strong className="text-3xl text-primary">
+                <strong className="text-primary text-3xl">
                   {Math.floor((correct_count / total_count) * 100)}
                 </strong>
               </p>

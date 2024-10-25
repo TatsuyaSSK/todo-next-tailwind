@@ -67,8 +67,8 @@ const SearchPage: NextPageWithLayout = () => {
     },
   });
 
-  if (error) return <div>failed to load</div>;
-  if (isLoading || !data) return <div>loading...</div>;
+  if (error) return <div>読み込みに失敗しました</div>;
+  if (isLoading || !data) return <div>ローディング中...</div>;
 
   const omitText = (text: string) => (len: number) => (ellipsis: string) =>
     text.length >= len ? text.slice(0, len - ellipsis.length) + ellipsis : text;

@@ -94,8 +94,8 @@ const ProblemsPage: NextPageWithLayout = () => {
     }
   }, [data]);
 
-  if (error) return <div>failed to load</div>;
-  if (isLoading) return <div>loading...</div>;
+  if (error) return <div>読み込みに失敗しました</div>;
+  if (isLoading) return <div>ローディング中...</div>;
 
   const deleteProblem = async (id: number) => {
     const url = `http://localhost:3000/api/v1/problems/${id}`;
