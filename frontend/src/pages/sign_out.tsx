@@ -17,7 +17,7 @@ const SignOutPage: NextPageWithLayout = () => {
       isSignedIn: false,
       isFetched: true,
     });
-    router.push('/problems');
+    router.push('/');
   }, [router, setUser]);
 
   return <></>;
