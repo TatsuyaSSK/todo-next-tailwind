@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
+import nlp from 'compromise';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ReactElement, useState } from 'react';
@@ -27,6 +28,15 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+
+const blank_types = [
+  'Random',
+  'Noun',
+  'Verb',
+  'Adjective',
+  'Adverb',
+  'Preposition',
+];
 
 const ProblemAddPage: NextPageWithLayout = () => {
   const { toast } = useToast();
@@ -78,19 +88,40 @@ const ProblemAddPage: NextPageWithLayout = () => {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true);
+
     const url = 'http://localhost:3000/api/v1/problems';
     const headers = { 'Content-Type': 'application/json' };
-    const textLength = countWords(values.englishText);
-    const blankIndexes = createBlankIndexes(textLength, 20);
-    const data = {
-      title: values.title,
-      english_text: values.englishText,
-      correct_answer_rate: 0,
-      blank_type: values.blankTypeId,
-      blank_rate: 30,
-      blank_indices: blankIndexes,
-    };
-    await axios({ method: 'POST', url, data, headers });
+    if (values.blankTypeId === 1) {
+      const textLength = countWords(values.englishText);
+      const blankIndexes = createBlankIndexes(textLength, 20);
+      const data = {
+        title: values.title,
+        english_text: values.englishText,
+        correct_answer_rate: 0,
+        blank_type: values.blankTypeId,
+        blank_rate: 30,
+        blank_indices: blankIndexes,
+      };
+      await axios({ method: 'POST', url, data, headers });
+    } else {
+      const blankIndexes: number[] = [];
+      values.englishText.split(' ').map((word, i) => {
+        const doc = nlp(word);
+        const tags = doc.json()[0]['terms'][0]['tags'];
+        if (tags.includes(blank_types[values.blankTypeId - 1])) {
+          blankIndexes.push(i);
+        }
+      });
+      const data = {
+        title: values.title,
+        english_text: values.englishText,
+        correct_answer_rate: 0,
+        blank_type: values.blankTypeId,
+        blank_rate: 30,
+        blank_indices: blankIndexes,
+      };
+      await axios({ method: 'POST', url, data, headers });
+    }
 
     setLoading(false);
     router.push('/problems');

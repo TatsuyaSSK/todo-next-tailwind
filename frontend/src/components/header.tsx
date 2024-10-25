@@ -44,9 +44,6 @@ const Header = () => {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
                     <DropdownMenuItem>
-                      <Link href="/profile">プロフィール</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
                       <Link href="/sign_out">サインアウト</Link>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
