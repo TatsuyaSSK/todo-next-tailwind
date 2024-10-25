@@ -118,6 +118,21 @@ const ProblemsPage: NextPageWithLayout = () => {
     router.push(`/problem/search?q=${values.search}`);
   }
 
+  const date_parse = (dateString: string) => {
+    const date = new Date(dateString);
+    // 日本時間に変換（UTCから9時間追加）
+    const jstDate = new Date(date.getTime() + 9 * 60 * 60 * 1000);
+    // フォーマット: %Y%m%d%H%M%S形式にする
+    const year = jstDate.getUTCFullYear();
+    const month = String(jstDate.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(jstDate.getUTCDate()).padStart(2, '0');
+    const hours = String(jstDate.getUTCHours()).padStart(2, '0');
+    const minutes = String(jstDate.getUTCMinutes()).padStart(2, '0');
+    const seconds = String(jstDate.getUTCSeconds()).padStart(2, '0');
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  };
+
   return (
     <>
       <Head>
@@ -216,7 +231,7 @@ const ProblemsPage: NextPageWithLayout = () => {
                   {omitText(problem.japaneseText)(40)('...')}
                 </TableCell>
                 <TableCell>{problem.correctAnswerRate}</TableCell>
-                <TableCell>{problem.createdAt}</TableCell>
+                <TableCell>{date_parse(problem.createdAt)}</TableCell>
                 <TableCell className="text-right">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
