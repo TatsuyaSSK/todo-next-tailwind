@@ -103,6 +103,7 @@ const SearchPage: NextPageWithLayout = () => {
             <SearchButton type="submit">検索</SearchButton>
           </form>
         </div>
+        <h1>検索結果(上位10件)</h1>
         <Table className="mt-10">
           <TableHeader>
             <TableRow>
