@@ -28,6 +28,7 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import { useRequireSignedIn } from '@/hooks/useRequireSignedIn';
 
 const blank_types = [
   'Random',
@@ -39,6 +40,7 @@ const blank_types = [
 ];
 
 const ProblemAddPage: NextPageWithLayout = () => {
+  useRequireSignedIn();
   const { toast } = useToast();
   const router = useRouter();
   const [isLoading, setLoading] = useState(false);
@@ -90,7 +92,12 @@ const ProblemAddPage: NextPageWithLayout = () => {
     setLoading(true);
 
     const url = 'http://localhost:3000/api/v1/problems';
-    const headers = { 'Content-Type': 'application/json' };
+    const headers = {
+      'Content-Type': 'application/json',
+      'access-token': localStorage.getItem('access-token'),
+      client: localStorage.getItem('client'),
+      uid: localStorage.getItem('uid'),
+    };
     if (values.blankTypeId === 1) {
       const textLength = countWords(values.englishText);
       const blankIndexes = createBlankIndexes(textLength, 20);

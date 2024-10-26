@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import useSWR from 'swr';
 import Layout from '@/components/layout';
 import { Button } from '@/components/ui/button';
+import { useRequireSignedIn } from '@/hooks/useRequireSignedIn';
 import { NextPageWithLayout } from '@/pages/_app';
 import { fetcher } from '@/utils';
 
@@ -28,6 +29,7 @@ interface BlankIndexInterface {
 }
 
 const ProblemDetailPage: NextPageWithLayout = () => {
+  useRequireSignedIn();
   const router = useRouter();
   const { id } = router.query;
   const problemUrl = `http://localhost:3000/api/v1/problems/`;
@@ -53,7 +55,12 @@ const ProblemDetailPage: NextPageWithLayout = () => {
     );
     const correctAnswerRate = Math.floor((correct_count / total_count) * 100);
     const url = `http://localhost:3000/api/v1/problems/${id}`;
-    const headers = { 'Content-Type': 'application/json' };
+    const headers = {
+      'Content-Type': 'application/json',
+      'access-token': localStorage.getItem('access-token'),
+      client: localStorage.getItem('client'),
+      uid: localStorage.getItem('uid'),
+    };
     await axios({
       method: 'PATCH',
       url,

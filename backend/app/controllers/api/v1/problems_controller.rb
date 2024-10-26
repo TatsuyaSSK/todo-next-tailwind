@@ -1,5 +1,6 @@
 class Api::V1::ProblemsController < Api::V1::BaseController
   include Pagination
+  before_action :authenticate_user!
   before_action :set_problem, only: [:show, :update, :destroy]
 
   def index
@@ -13,11 +14,11 @@ class Api::V1::ProblemsController < Api::V1::BaseController
       config.host = 'https://api-free.deepl.com'
     end
     translation = DeepL.translate(params[:english_text], "EN", "JA")
-    @problem = Problem.new(problem_params.merge(japanese_text: translation.text))
+    @problem = current_user.problems.new(problem_params.merge(japanese_text: translation.text))
     @problem.transaction do
       @problem.save!
       for i in params[:blank_indices] do
-        BlankIndex.create!(problem_id: @problem.id, index: i)
+        @problem.blank_indices.create!(index: i)
       end
     end
     render json: @problem
@@ -50,12 +51,12 @@ class Api::V1::ProblemsController < Api::V1::BaseController
   end
 
   def get_problem(params)
-    return Problem.title_desc if (params[:sort] == "title" && params[:direction] == "DESC")
-    return Problem.title_asc if (params[:sort] == "title" && params[:direction] == "ASC")
-    return Problem.high_rate if (params[:sort] == "correct_answer_rate" && params[:direction] == "DESC")
-    return Problem.low_rate if (params[:sort] == "correct_answer_rate" && params[:direction] == "ASC")
-    return Problem.latest if (params[:sort] == "created_at" && params[:direction] == "DESC")
-    return Problem.oldest if (params[:sort] == "created_at" && params[:direction] == "ASC")
-    return Problem.default
+    return current_user.problems.title_desc if (params[:sort] == "title" && params[:direction] == "DESC")
+    return current_user.problems.title_asc if (params[:sort] == "title" && params[:direction] == "ASC")
+    return current_user.problems.high_rate if (params[:sort] == "correct_answer_rate" && params[:direction] == "DESC")
+    return current_user.problems.low_rate if (params[:sort] == "correct_answer_rate" && params[:direction] == "ASC")
+    return current_user.problems.latest if (params[:sort] == "created_at" && params[:direction] == "DESC")
+    return current_user.problems.oldest if (params[:sort] == "created_at" && params[:direction] == "ASC")
+    return current_user.problems.default
   end
 end

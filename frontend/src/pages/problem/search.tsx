@@ -18,6 +18,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { useRequireSignedIn } from '@/hooks/useRequireSignedIn';
 import { fetcher } from '@/utils';
 
 interface Problem {
@@ -32,6 +33,7 @@ interface SearchResultInterface {
 }
 
 const SearchPage: NextPageWithLayout = () => {
+  useRequireSignedIn();
   const router = useRouter();
   const keywords = 'q' in router.query ? router.query.q : '';
   const transformKeyword = (): string => {

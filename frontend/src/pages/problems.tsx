@@ -37,6 +37,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { useRequireSignedIn } from '@/hooks/useRequireSignedIn';
 import { fetcher } from '@/utils';
 
 interface ProblemInterface {
@@ -57,6 +58,7 @@ interface PageMetaInterface {
 }
 
 const ProblemsPage: NextPageWithLayout = () => {
+  useRequireSignedIn();
   const router = useRouter();
   const page = 'page' in router.query ? Number(router.query.page) : 1;
   const sort = 'sort' in router.query ? router.query.sort : 'created_at';
@@ -99,7 +101,13 @@ const ProblemsPage: NextPageWithLayout = () => {
 
   const deleteProblem = async (id: number) => {
     const url = `http://localhost:3000/api/v1/problems/${id}`;
-    await axios({ method: 'DELETE', url });
+    const headers = {
+      'Content-Type': 'application/json',
+      'access-token': localStorage.getItem('access-token'),
+      client: localStorage.getItem('client'),
+      uid: localStorage.getItem('uid'),
+    };
+    await axios({ method: 'DELETE', url, headers });
     /*
     NOTE: 削除したときにページごとの数より少なくなる（リロードすればデータが再取得されて解消される）
     挙動として、削除したら現在のpage番号でデータを再取得しにいくべきなんだろうか。

@@ -5,6 +5,9 @@ export const fetcher = (url: string) =>
     .get(url, {
       headers: {
         'Content-Type': 'application/json',
+        'access-token': localStorage.getItem('access-token'),
+        client: localStorage.getItem('client'),
+        uid: localStorage.getItem('uid'),
       },
     })
     .then((res: AxiosResponse) => {
