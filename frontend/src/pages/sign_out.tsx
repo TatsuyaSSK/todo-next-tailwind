@@ -4,10 +4,8 @@ import { NextPageWithLayout } from './_app';
 import Layout from '@/components/layout';
 import { useToast } from '@/hooks/use-toast';
 import { useUserState } from '@/hooks/useGlobalState';
-import { useRequireSignedIn } from '@/hooks/useRequireSignedIn';
 
 const SignOutPage: NextPageWithLayout = () => {
-  useRequireSignedIn();
   const router = useRouter();
   const [, setUser] = useUserState();
   const { toast } = useToast();
